@@ -1,4 +1,3 @@
-# preprocess.py
 import pandas as pd
 import numpy as np
 from datetime import datetime
@@ -13,25 +12,20 @@ def remove_outliers(df, threshold):
 def extract_features(df):
     df = df.copy()
     
-    # Extração de data
     parts = df["date"].str.split("-", n=3, expand=True)
     df["year"] = parts[0].astype('int')
     df["month"] = parts[1].astype('int')
     df["day"] = parts[2].astype('int')
 
-    # Dias da semana
     df['weekday'] = df.apply(lambda x: datetime(x['year'], x['month'], x['day']).weekday(), axis=1)
     df['weekend'] = df['weekday'].apply(lambda x: 1 if x >= 5 else 0)
 
-    # Feriados
-    india_holidays = holidays.country_holidays('IN')
+    india_holidays = holidays.country_holidays('IN') # India hahahahaha
     df['holidays'] = df['date'].apply(lambda x: 1 if india_holidays.get(x) else 0)
 
-    # Transformação cíclica de meses
     df['m1'] = np.sin(df['month'] * (2 * np.pi / 12))
     df['m2'] = np.cos(df['month'] * (2 * np.pi / 12))
 
-    # Remoção de colunas não preditivas ou redundantes (ano já havia sido removido no seu código original)
     df.drop(['date', 'year'], axis=1, inplace=True)
     
     return df

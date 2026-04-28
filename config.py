@@ -1,4 +1,3 @@
-
 DATA_PATH = 'StoreDemand.csv'
 TARGET_COL = 'sales'
 
