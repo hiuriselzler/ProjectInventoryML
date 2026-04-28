@@ -1,0 +1,8 @@
+
+DATA_PATH = 'StoreDemand.csv'
+TARGET_COL = 'sales'
+
+OUTLIER_THRESHOLD = 140
+
+TEST_SIZE = 0.05
+RANDOM_STATE = 22
